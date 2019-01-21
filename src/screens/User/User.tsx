@@ -14,7 +14,7 @@ const UserDetails = () => {
         <strong>Username</strong>: {userDetails.username} <br />
         <strong>Email</strong>: {userDetails.email}
         <br />
-        <strong>Company</strong> Name: {userDetails.company.name}
+        <strong>Website</strong> Name: {userDetails.website}
         <br />
       </div>
     </>

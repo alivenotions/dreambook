@@ -2,21 +2,16 @@ import React, { MouseEvent } from 'react'
 import { Redirect } from 'react-router'
 import Header from './Header'
 import { User } from '../../shared/types/user'
+import PostsList from './PostsList'
 
 interface State {
   isLoggedOut: boolean
-  userDetails: User | {}
+  userDetails: User
 }
 class Home extends React.Component {
   state: State = {
     isLoggedOut: false,
-    userDetails: {},
-  }
-
-  componentDidMount() {
-    this.setState({
-      userDetails: JSON.parse(localStorage.getItem('userDetails') as string),
-    })
+    userDetails: JSON.parse(localStorage.getItem('userDetails') as string),
   }
 
   logoutHandler = (event: MouseEvent) => {
@@ -34,13 +29,15 @@ class Home extends React.Component {
     }
 
     const { userDetails } = this.state
+    const username = userDetails.username
     return (
       <>
         <Header
           heading="DreamBook"
-          username={(userDetails as User).username}
+          username={username as string}
           logoutHandler={this.logoutHandler}
         />
+        <PostsList user={userDetails} />
       </>
     )
   }
