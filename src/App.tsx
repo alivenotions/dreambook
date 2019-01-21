@@ -4,6 +4,7 @@ import Login from './screens/Login/Login'
 import Home from './screens/Home/Home'
 
 import './App.css'
+import UserDetails from './screens/User/User'
 
 class App extends Component {
   render() {
@@ -12,6 +13,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Login} />
           <Route path="/home" component={Home} />
+          <Route path="/user" component={UserDetails} />
         </Switch>
       </BrowserRouter>
     )

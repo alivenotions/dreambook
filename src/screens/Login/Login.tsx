@@ -55,7 +55,7 @@ class Login extends React.Component {
       .then(response => response.data)
       .then(userDetails => {
         if (userDetails[0] !== undefined) {
-          localStorage.setItem('userDetails', userDetails[0])
+          localStorage.setItem('userDetails', JSON.stringify(userDetails[0]))
           this.setState({ isAuthorized: true })
         } else {
           console.log('Not authorized')

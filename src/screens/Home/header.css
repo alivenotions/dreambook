@@ -1,0 +1,14 @@
+header {
+  height: 5vh;
+  background-color: #ccc;
+}
+
+#heading {
+  margin: 5px;
+  font-weight: bolder;
+  float: left;
+}
+
+#details {
+  float: right;
+}
