@@ -1,21 +1,23 @@
 import React, { MouseEvent } from 'react'
 
-import './post.css'
 import { Comments } from '../../shared/types/post'
+import Comment from './Comment'
 
-interface PostProps {
+import './post.css'
+
+interface Props {
   title: string
   commentCount: number
   body: string
   comments: Comments[]
 }
 
-interface PostState {
+interface State {
   showComments: boolean
 }
 
-class Posts extends React.Component<PostProps, PostState> {
-  state: PostState = {
+class Posts extends React.Component<Props, State> {
+  state: State = {
     showComments: false,
   }
 
@@ -55,29 +57,6 @@ class Posts extends React.Component<PostProps, PostState> {
       </div>
     )
   }
-}
-
-interface CommentsProps {
-  bodyText: string
-  name: string
-  email: string
-  key: number
-}
-
-const Comment = ({ bodyText, name, email, key }: CommentsProps) => {
-  return (
-    <div className="comment" key={key}>
-      <span>
-        <strong>Comment by</strong>:<span className="highlight">{name}</span> at
-        <span className="highlight">{email}</span>
-      </span>
-      <br />
-      <span>
-        <strong>Comment</strong>: {bodyText}
-      </span>
-      <br />
-    </div>
-  )
 }
 
 export default Posts

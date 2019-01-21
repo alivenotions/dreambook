@@ -4,6 +4,7 @@ import { User } from '../../shared/types/user'
 import Spinner from '../../shared/components/Spinner'
 import { Post } from '../../shared/types/post'
 import Posts from './Post'
+import './postsList.css'
 
 interface Props {
   user: User
@@ -48,15 +49,22 @@ class PostsList extends React.Component<Props, State> {
     return this.state.posts.length === 0 ? (
       <Spinner />
     ) : (
-      this.state.posts.map(post => (
-        <Posts
-          title={post.title}
-          body={post.body}
-          commentCount={post.comments.length}
-          comments={post.comments}
-          key={post.id}
-        />
-      ))
+      <div className="postList">
+        <h2>Hi! {this.props.user.name}</h2>
+        <span style={{ padding: '10px' }}>
+          The total number of posts that you have written are:{' '}
+          {this.state.posts.length}
+        </span>
+        {this.state.posts.map(post => (
+          <Posts
+            title={post.title}
+            body={post.body}
+            commentCount={post.comments.length}
+            comments={post.comments}
+            key={post.id}
+          />
+        ))}
+      </div>
     )
   }
 }
