@@ -6,18 +6,16 @@ import Home from './screens/Home/Home'
 import './App.css'
 import UserDetails from './screens/User/User'
 
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <PrivateRoute path="/home" component={Home} />
-          <PrivateRoute path="/user" component={UserDetails} />
-        </Switch>
-      </BrowserRouter>
-    )
-  }
+function App() {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <PrivateRoute path="/home" component={Home} />
+        <PrivateRoute path="/user" component={UserDetails} />
+      </Switch>
+    </BrowserRouter>
+  )
 }
 
 function PrivateRoute({ component: Component, ...rest }: any) {

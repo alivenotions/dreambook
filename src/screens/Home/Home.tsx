@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react'
+import React from 'react'
 import { Redirect } from 'react-router'
 import Header from './Header'
 import { User } from '../../shared/types/user'
@@ -8,39 +8,33 @@ interface State {
   isLoggedOut: boolean
   userDetails: User
 }
-class Home extends React.Component {
-  state: State = {
-    isLoggedOut: false,
-    userDetails: JSON.parse(localStorage.getItem('userDetails') as string),
+
+function Home() {
+  const [isLoggedOut, setIsLoggedOut] = React.useState(false)
+  const [userDetails] = React.useState<User>(
+    JSON.parse(localStorage.getItem('userDetails') as string)
+  )
+
+  function logoutHandler() {
+    setIsLoggedOut(true)
+    localStorage.removeItem('userDetails')
   }
 
-  logoutHandler = (event: MouseEvent) => {
-    this.setState(
-      {
-        isLoggedOut: true,
-      },
-      () => localStorage.removeItem('userDetails')
-    )
+  if (isLoggedOut) {
+    return <Redirect to="/" />
   }
 
-  render() {
-    if (this.state.isLoggedOut) {
-      return <Redirect to="/" />
-    }
-
-    const { userDetails } = this.state
-    const username = userDetails.username
-    return (
-      <>
-        <Header
-          heading="DreamBook"
-          username={username as string}
-          logoutHandler={this.logoutHandler}
-        />
-        <PostsList user={userDetails} />
-      </>
-    )
-  }
+  const { username } = userDetails
+  return (
+    <React.Fragment>
+      <Header
+        heading="Dreambook"
+        username={username as string}
+        logoutHandler={() => logoutHandler()}
+      />
+      <PostsList user={userDetails} />
+    </React.Fragment>
+  )
 }
 
 export default Home

@@ -4,13 +4,19 @@ interface Props {
   username: string
   isFormValid: boolean
   handleInputChange: (value: string) => void
-  submitLoginForm: (event: FormEvent) => void
+  submitLoginForm: (username: string) => void
 }
 function LoginForm(props: Props) {
+  function submitForm(event: FormEvent) {
+    event.preventDefault()
+    const username = (event.target as HTMLFormElement).username.value
+    props.submitLoginForm(username)
+  }
+
   return (
     <div className="login-form">
       <header>DreamBook</header>
-      <form onSubmit={props.submitLoginForm}>
+      <form onSubmit={submitForm}>
         <label>Username</label>
         <input
           type="text"

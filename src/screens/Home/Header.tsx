@@ -8,19 +8,17 @@ interface Props {
   username: string
   logoutHandler: (event: MouseEvent) => void
 }
-class Header extends React.Component<Props> {
-  render() {
-    const { heading, username, logoutHandler } = this.props
-    return (
-      <header>
-        <span id="heading">{heading}</span>
-        <span id="details">
-          <Link to="/user">{username}</Link>
-          <Button name="logout" handler={logoutHandler} value="Logout" />
-        </span>
-      </header>
-    )
-  }
+function Header(props: Props) {
+  const { heading, username, logoutHandler } = props
+  return (
+    <header>
+      <span id="heading">{heading}</span>
+      <span id="details">
+        <Link to="/user">{username}</Link>
+        <Button name="logout" handler={logoutHandler} value="Logout" />
+      </span>
+    </header>
+  )
 }
 
 export default Header

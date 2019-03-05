@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react'
+import React from 'react'
 import { axiosInstance } from '../../shared/utils/axiosInstance'
 import { User } from '../../shared/types/user'
 import Spinner from '../../shared/components/Spinner'
@@ -10,17 +10,11 @@ interface Props {
   user: User
 }
 
-interface State {
-  posts: Post[]
-}
+function PostsList(props: Props) {
+  const [posts, setPosts] = React.useState<Post[]>([])
 
-class PostsList extends React.Component<Props, State> {
-  state: State = {
-    posts: [],
-  }
-
-  componentDidMount() {
-    const url = `/posts?userId=${this.props.user.id}`
+  React.useEffect(() => {
+    const url = `/posts?userId=${props.user.id}`
     axiosInstance({
       method: 'get',
       url,
@@ -41,32 +35,29 @@ class PostsList extends React.Component<Props, State> {
               comments: comments[i].data,
             }))
           })
-          .then(mergedPosts => this.setState({ posts: mergedPosts }))
+          .then(mergedPosts => setPosts(mergedPosts))
       })
-  }
+  }, [])
 
-  render() {
-    return this.state.posts.length === 0 ? (
-      <Spinner />
-    ) : (
-      <div className="postList">
-        <h2>Hi! {this.props.user.name}</h2>
-        <span style={{ padding: '10px' }}>
-          The total number of posts that you have written are:{' '}
-          {this.state.posts.length}
-        </span>
-        {this.state.posts.map(post => (
-          <Posts
-            title={post.title}
-            body={post.body}
-            commentCount={post.comments.length}
-            comments={post.comments}
-            key={post.id}
-          />
-        ))}
-      </div>
-    )
-  }
+  return posts.length === 0 ? (
+    <Spinner />
+  ) : (
+    <div className="postList">
+      <h2>Hi! {props.user.name}</h2>
+      <span style={{ padding: '10px' }}>
+        The total number of posts that you have written are: {posts.length}
+      </span>
+      {posts.map(post => (
+        <Posts
+          title={post.title}
+          body={post.body}
+          commentCount={post.comments.length}
+          comments={post.comments}
+          key={post.id}
+        />
+      ))}
+    </div>
+  )
 }
 
 export default PostsList
